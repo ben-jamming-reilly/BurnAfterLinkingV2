@@ -1,80 +1,75 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
 // Styling
 import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
-const Login = ({ login }) => {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
   };
 
   return (
-    <Fragment>
-      <Form
-        className='float-center rounded border border-secondary bg-light'
-        onSubmit={(e) => onSubmit(e)}
-        style={{
-          padding: "10px",
-          width: "100%",
-        }}
-      >
-        <Form.Row>
-          <Form.Group as={Col}>
-            <Form.Control
-              name='email'
-              value={formData.email}
+    <Form
+      className='float-center'
+      onSubmit={(e) => onSubmit(e)}
+      style={{
+        padding: "10px",
+        width: "100%",
+      }}
+    >
+      <Row className='mb-2'>
+        <Form.Group as={Col}>
+          <FormControl
+            name='email'
+            value={formData.email}
+            onChange={(e) => onChange(e)}
+            placeholder='Email'
+            required
+          />
+        </Form.Group>
+      </Row>
+      <Row className='mb-2'>
+        <Form.Group as={Col}>
+          <InputGroup>
+            <FormControl
+              name='password'
+              type='password'
+              value={formData.password}
               onChange={(e) => onChange(e)}
-              placeholder='Email'
+              placeholder='Password'
+              minLength='6'
               required
             />
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col}>
-            <InputGroup>
-              <Form.Control
-                name='password'
-                type={showPassword ? "text" : "password"}
-                value={formData.password}
-                onChange={(e) => onChange(e)}
-                placeholder='Password'
-                minLength='6'
-                required
-              />
-              <InputGroup.Append>
-                <Button onClick={() => setShowPassword(!showPassword)}>
-                  {!showPassword ? (
-                    <i class='fas fa-eye-slash'></i>
-                  ) : (
-                    <i class='fas fa-eye'></i>
-                  )}
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col}>
-            <Button block type='submit'>
-              Login
-            </Button>
-          </Form.Group>
-        </Form.Row>
-      </Form>
-    </Fragment>
+            {/*
+            <InputGroup.Append>
+              <Button onClick={() => setShowPassword(!showPassword)}>Hi</Button>
+            </InputGroup.Append>
+          </InputGroup> */}
+          </InputGroup>
+        </Form.Group>
+      </Row>
+      <Row className='mb-2'>
+        <Form.Group as={Col}>
+          <Button block type='submit'>
+            Login
+          </Button>
+        </Form.Group>
+      </Row>
+    </Form>
   );
 };
 
