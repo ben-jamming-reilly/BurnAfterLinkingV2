@@ -3,7 +3,9 @@ import { action, thunk } from "easy-peasy";
 const user = {
   email: "",
   token: "",
-  loading: true,
+  lastLogin: Date.now(),
+  isAuthenticated: true,
+  loading: false,
 };
 
 export default user;

@@ -17,7 +17,7 @@ const Auth = () => {
       <br />
       <Col />
       <Col sm='10' md='8' lg='6' xl='6' className='mx-auto'>
-        <div className='bg-light border p-2'>
+        <div className='bg-light border p-2 rounded'>
           <Row
             style={{
               justifyContent: "center",

@@ -63,8 +63,8 @@ const Login = () => {
         </Form.Group>
       </Row>
       <Row className='mb-2'>
-        <Form.Group as={Col}>
-          <Button block type='submit'>
+        <Form.Group as={Col} className='text-center'>
+          <Button block type='submit' className='w-100'>
             Login
           </Button>
         </Form.Group>

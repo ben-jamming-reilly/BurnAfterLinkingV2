@@ -103,9 +103,9 @@ const SignUp = () => {
         </Form.Group>
       </Row> */}
       <Row className='mb-2'>
-        <Form.Group as={Col}>
-          <Button block type='submit'>
-            SignUp
+        <Form.Group as={Col} className='text-center'>
+          <Button block type='submit' className='w-100'>
+            Sign Up
           </Button>
         </Form.Group>
       </Row>
