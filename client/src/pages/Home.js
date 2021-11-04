@@ -7,6 +7,9 @@ import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 
 import MyLinks from "../components/MyLinks";
+import CreateLink from "../components/CreateLink";
+import LinksViewed from "../components/LinksViewed";
+import LinksExpired from "../components/LinksExpired";
 
 const Home = () => {
   const [menuState, setMenuState] = useState("create");
@@ -69,13 +72,15 @@ const Home = () => {
           <Stack>
             <MyLinks />
             <div>
-              {menuState === "create"
-                ? "create"
-                : menuState === "links-views"
-                ? "links-views"
-                : menuState === "links-expired"
-                ? "links-expired"
-                : "settings"}
+              {menuState === "create" ? (
+                <CreateLink />
+              ) : menuState === "links-views" ? (
+                <LinksViewed />
+              ) : menuState === "links-expired" ? (
+                <LinksExpired />
+              ) : (
+                "settings"
+              )}
             </div>
           </Stack>
         </Col>

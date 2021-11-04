@@ -61,6 +61,18 @@ const links = {
     },
   ],
   loading: false,
+  addLink: action((state, payload) => {
+    try {
+    } catch (err) {}
+  }),
+  removeLink: action((state, payload) => {
+    try {
+    } catch (err) {}
+  }),
+  editLink: action((state, payload) => {
+    try {
+    } catch (err) {}
+  }),
 };
 
 export default links;

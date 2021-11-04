@@ -1,6 +1,7 @@
 import { useStoreState } from "easy-peasy";
 
 import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 
@@ -47,9 +48,9 @@ const MyLinks = () => {
     <Card className='m-3' border='secondary'>
       <Card.Body className='p-2 mx-2'>
         <Stack direction='horizontal' gap={3}>
-          <Button variant='outline-secondary'>
-            <GearIcon />
-          </Button>
+          <h4 className='p-0 mb-0'>
+            <Badge bg='primary'>My Links</Badge>
+          </h4>
         </Stack>
       </Card.Body>
 
