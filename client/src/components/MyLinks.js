@@ -1,14 +1,17 @@
-import { useStoreState } from "easy-peasy";
+import { useEffect } from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
 import Stack from "react-bootstrap/Stack";
 
 import TrashIcon from "../icons/TrashIcon";
 import GearIcon from "../icons/GearIcon";
 
-const Link = ({ desc, createDate, passHash }) => {
+const Link = ({ desc, expireDate, passHash }) => {
   function prettyDate(dateTime) {
     const date = new Date(dateTime);
     return date.toLocaleDateString();
@@ -28,9 +31,9 @@ const Link = ({ desc, createDate, passHash }) => {
         </Stack>
       </Card.Header>
       <Card.Body>
-        <Card.Title>{prettyDate(createDate)}</Card.Title>
+        <Card.Title>{prettyDate(expireDate)}</Card.Title>
         <Card.Subtitle className='text-muted mb-2 px-1'>
-          {prettyTime(createDate)}
+          {prettyTime(expireDate)}
         </Card.Subtitle>
         <Card.Text>
           <b>Description:</b> {desc}
@@ -43,6 +46,10 @@ const Link = ({ desc, createDate, passHash }) => {
 
 const MyLinks = () => {
   const { links, loading } = useStoreState((state) => state.links);
+  const getLinks = useStoreActions((actions) => actions.links.getLinks);
+
+  // Gets the links data on render
+  useEffect(() => getLinks(), []);
 
   return (
     <Card className='m-3' border='secondary'>
@@ -53,20 +60,30 @@ const MyLinks = () => {
           </h4>
         </Stack>
       </Card.Body>
-
       <Card.Body className='p-2'>
-        <div
-          className='d-flex flex-row flex-nowrap overflow-auto'
-          style={{ height: "16rem" }}
-        >
-          {links.map((link) => (
-            <Link
-              desc={link.desc}
-              createDate={link.createDate}
-              passHash={link.passHash}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div
+            className='row align-items-center justify-content-center'
+            style={{ height: "16rem" }}
+          >
+            <Spinner animation='border' />
+          </div>
+        ) : (
+          <div
+            className='d-flex flex-row flex-nowrap overflow-auto'
+            style={{ height: "16rem" }}
+          >
+            {links &&
+              links.map((link) => (
+                <Link
+                  key={link.id}
+                  desc={link.desc}
+                  expireDate={link.expireDate}
+                  passHash={link.passHash}
+                />
+              ))}
+          </div>
+        )}
       </Card.Body>
     </Card>
   );
