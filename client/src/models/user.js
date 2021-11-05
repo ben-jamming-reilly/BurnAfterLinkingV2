@@ -4,7 +4,7 @@ const user = {
   email: "",
   token: "",
   lastLogin: Date.now(),
-  isAuthenticated: true,
+  isAuthenticated: false,
   loading: false,
   // actions
   setUser: action((state, payload) => {

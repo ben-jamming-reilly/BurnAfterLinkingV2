@@ -9,12 +9,21 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+
 const Auth = () => {
   const [isLogin, setAuthType] = useState(false);
 
   return (
     <Fragment>
-      <br />
+      <Navbar bg='primary' variant='dark'>
+        <Container>
+          <Navbar.Brand href='#home'>
+            <h2>Burn After Linking</h2>
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
       <Col />
       <Col sm='10' md='8' lg='6' xl='4' className='mx-auto'>
         <div className='bg-light border p-2 rounded'>
