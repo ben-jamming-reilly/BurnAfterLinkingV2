@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react";
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -24,6 +24,7 @@ const CreateLink = () => {
   const [showModal, setShowModal] = useState(false);
 
   const saveLink = useStoreActions((actions) => actions.links.saveLink);
+  const link = useStoreState((state) => state.links.link);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -63,10 +64,6 @@ const CreateLink = () => {
 
   const handleClose = () => setShowModal(false);
 
-  // useEffect(() => {
-  //   setIsLinkUploading(true);
-  // }, [onSubmit]);
-
   return (
     <Fragment>
       <Modal
@@ -79,7 +76,17 @@ const CreateLink = () => {
         <Modal.Header closeButton>
           <Modal.Title>Copy this Link</Modal.Title>
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body className='mx-auto'>
+          <Form.Control
+            className='text-center'
+            size='sm'
+            readOnly
+            defaultValue={`${window.location.protocol}//${window.location.host}/f/#${link.password}`}
+          />
+          <p className=' mt-2'>
+            <em>Remember, once you leave this page it will be gone</em>
+          </p>
+        </Modal.Body>
       </Modal>
       <Card className='m-3' border='secondary'>
         <Card.Body>
