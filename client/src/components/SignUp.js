@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useStoreActions } from "easy-peasy";
+import { useHistory } from "react-router-dom";
 
 // Styling
 import Form from "react-bootstrap/Form";
@@ -13,39 +15,32 @@ import ReCAPTCHA from "react-google-recaptcha";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
-    password1: "",
+    password: "",
     password2: "",
   });
+
+  const history = useHistory();
+
+  const getUser = useStoreActions((actions) => actions.user.getUser);
 
   const [captcha, setCaptcha] = useState(null);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
-    console.log(captcha);
+    if (formData.password !== formData.password2) {
+      console.log("Bad");
 
-    // if (formData.password1 !== formData.password2) {
-    //   setAlarm("Passwords do not match", "danger");
-    //   console.log("Passwords do not match.");
-    //   return;
-    // }
+      return;
+    }
 
-    // const userData = {
-    //   first_name: formData.first_name,
-    //   last_name: formData.last_name,
-    //   email: formData.email,
-    //   password: formData.password1,
-    // };
-    // if (captcha) {
-    //   console.log(captcha);
-    //   signup(userData, captcha);
-    // } else {
-    //   setAlarm("Captcha is required.", "danger");
-    // }
+    if (await getUser(formData)) {
+      history.push("/home");
+    } else {
+    }
   };
 
   return (
@@ -71,9 +66,9 @@ const SignUp = () => {
       <Row className='mb-2'>
         <Form.Group as={Col}>
           <FormControl
-            name='password1'
+            name='password'
             type={"password"}
-            value={formData.password1}
+            value={formData.password}
             onChange={(e) => onChange(e)}
             placeholder='Password'
             minLength='6'

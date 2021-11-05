@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useStoreActions } from "easy-peasy";
+import { useHistory } from "react-router-dom";
 
 // Styling
 import Form from "react-bootstrap/Form";
@@ -14,12 +16,20 @@ const Login = () => {
     password: "",
   });
 
+  const history = useHistory();
+  const getUser = useStoreActions((actions) => actions.user.getUser);
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+
+    if (await getUser(formData)) {
+      history.push("/home");
+    } else {
+    }
   };
 
   return (

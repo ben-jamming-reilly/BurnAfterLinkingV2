@@ -7,13 +7,24 @@ const user = {
   isAuthenticated: true,
   loading: false,
   // actions
-  setUser: action((state, payload) => {}),
+  setUser: action((state, payload) => {
+    state.email = payload.email;
+    state.token = "<JWT>";
+    state.isAuthenticated = true;
+    state.loading = false;
+  }),
   // thunks
   getUser: thunk(async (actions, payload) => {
+    console.log(payload);
     try {
       // Network Request Simulated
       await new Promise((resolve) => setTimeout(resolve, 2000));
-    } catch (err) {}
+
+      actions.setUser(payload);
+      return true;
+    } catch (err) {
+      return false;
+    }
   }),
 };
 
