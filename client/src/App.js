@@ -14,7 +14,7 @@ function App() {
       <Switch>
         <Route path='/' exact component={Index} />
         <Route path='/auth' exact component={Auth} />
-        <Route path='/f/:key' exact component={File} />
+        <Route path='/f/' exact component={File} />
         <PrivateRoute path='/home' exact component={Home} />
         <Route component={NotFound} />
       </Switch>

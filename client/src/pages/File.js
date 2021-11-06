@@ -12,7 +12,6 @@ import Image from "react-bootstrap/Image";
 import terryBear from "../images/terryBear.jpg";
 
 const File = () => {
-  const { key } = useParams();
   const [captcha, setCaptcha] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [showImage, setShowImage] = useState(false);
