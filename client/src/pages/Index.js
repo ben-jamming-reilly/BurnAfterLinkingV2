@@ -9,7 +9,7 @@ const Index = () => {
     <Fragment>
       <Navbar bg='primary' variant='dark'>
         <Container>
-          <Navbar.Brand href='#home'>
+          <Navbar.Brand>
             <h2>Burn After Linking</h2>
           </Navbar.Brand>
         </Container>

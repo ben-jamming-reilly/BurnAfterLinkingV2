@@ -1,4 +1,6 @@
 import React, { useState, Fragment } from "react";
+import { Redirect } from "react-router";
+import { useStoreState } from "easy-peasy";
 
 import Login from "../components/Login";
 import SignUp from "../components/SignUp";
@@ -14,12 +16,15 @@ import Container from "react-bootstrap/Container";
 
 const Auth = () => {
   const [isLogin, setAuthType] = useState(false);
+  const isAuthenticated = useStoreState((state) => state.user.isAuthenticated);
+
+  if (isAuthenticated) return <Redirect to='/home' />;
 
   return (
     <Fragment>
       <Navbar bg='primary' variant='dark'>
         <Container>
-          <Navbar.Brand href='#home'>
+          <Navbar.Brand>
             <h2>Burn After Linking</h2>
           </Navbar.Brand>
         </Container>

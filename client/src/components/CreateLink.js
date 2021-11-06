@@ -76,7 +76,7 @@ const CreateLink = () => {
         <Modal.Header closeButton>
           <Modal.Title>Copy this Link</Modal.Title>
         </Modal.Header>
-        <Modal.Body className='mx-auto'>
+        <Modal.Body className='mx-1 text-center'>
           <Form.Control
             className='text-center'
             size='sm'
