@@ -10,7 +10,7 @@ const Index = () => {
       <Navbar bg='primary' variant='dark'>
         <Container>
           <Navbar.Brand>
-            <h2>Burn After Linking</h2>
+            <h2>BurnAfterLinking</h2>
           </Navbar.Brand>
         </Container>
       </Navbar>

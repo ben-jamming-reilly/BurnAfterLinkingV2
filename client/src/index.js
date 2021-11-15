@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <StoreProvider store={store}>
       <Helmet>
-        <title>Burn After Linking</title>
+        <title>BurnAfterLinking</title>
       </Helmet>
       <App />
     </StoreProvider>

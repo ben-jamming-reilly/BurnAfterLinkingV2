@@ -112,7 +112,11 @@ const Link = ({ id, desc, expireDate, passHash }) => {
           </Form>
         </Modal.Body>
       </Modal>
-      <Card style={{ minWidth: "18rem" }} className='m-2' border='secondary'>
+      <Card
+        style={{ minWidth: "18rem", maxWidth: "20rem" }}
+        className='m-2'
+        border='secondary'
+      >
         <Card.Header className='p-0'>
           <Stack direction='horizontal' gap={3}>
             <Button
