@@ -1,1 +1,3 @@
 client/localhost*.pem
+node_modules
+.env
