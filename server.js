@@ -9,6 +9,10 @@ const app = express();
 // Utility middleware
 app.use(express.json());
 
+// The API routes
+app.use("/api/link", require("./api/link"));
+app.use("/api/user", require("./api/user"));
+
 if (process.env.NODE_ENV === "production") {
   //set static file
   app.use(express.static("client/build"));

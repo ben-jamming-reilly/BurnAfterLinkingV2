@@ -12,16 +12,16 @@ datasource db {
 
 model User {
   id         String   @id @default(uuid())
-  email      String
+  email      String   @unique
   password   String
   createDate DateTime @default(now())
   Link       Link[]
 }
 
 model Link {
-  id         String   @id @default(uuid())
+  passHash   String   @id
   userId     String
-  passHash   String
+  fileName   String   @default(uuid())
   desc       String
   expireDate DateTime
   // Relation
