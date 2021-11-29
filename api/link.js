@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const auth = require("../middleware/auth");
+const upload = require("../middleware/upload");
 const { db } = require("../utils/db");
 
 // Get all of the links
@@ -23,9 +24,11 @@ router.get("/", auth, async (req, res) => {
 });
 
 // Creates a new link
-router.post("/", auth, async (req, res) => {
-  const { passHash, desc, expireDate } = req.body;
+router.post("/", [auth, upload.single("file")], async (req, res) => {
+  const { passHash, desc, expireDate } = JSON.parse(req.body.data);
   const id = req.user.id;
+  // const filename = `${req.file.filename}.${req.file.mimetype.split("/")[1]}`;
+  const filename = req.file.filename;
 
   if (!passHash || !expireDate) {
     return res
@@ -40,6 +43,7 @@ router.post("/", auth, async (req, res) => {
         userId: id,
         desc: desc,
         expireDate: expireDate,
+        fileName: filename,
       },
     });
 
@@ -64,9 +68,19 @@ router.put("/", auth, async (req, res) => {
   }
 
   try {
-    const link = await db.link.update({
+    let link = await db.link.findFirst({
       where: {
         userId: id,
+        passHash: passHash,
+      },
+    });
+
+    if (!link) {
+      return res.status(400).json({ errors: [{ msg: `Link doesn't exist` }] });
+    }
+
+    link = await db.link.update({
+      where: {
         passHash: passHash,
       },
       data: {
@@ -94,10 +108,20 @@ router.delete("/", auth, async (req, res) => {
   }
 
   try {
-    const link = await db.link.delete({
+    let link = await db.link.findFirst({
+      where: {
+        userId: id,
+        passHash: passHash,
+      },
+    });
+
+    if (!link) {
+      return res.status(400).json({ errors: [{ msg: `Link doesn't exist` }] });
+    }
+
+    link = await db.link.delete({
       where: {
         passHash: passHash,
-        userId: id,
       },
     });
     return res.json(link);
