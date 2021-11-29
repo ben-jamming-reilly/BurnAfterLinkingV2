@@ -6,8 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Helmet } from "react-helmet";
 import { StoreProvider } from "easy-peasy";
+import axios from "axios";
 
 import store from "./models/index";
+
+if (process.env.NODE_ENV !== "production") {
+  axios.defaults.baseURL = "http://localhost:5000";
+}
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 
 // Set the environment variables
 const dotenvResult = dotenv.config();
@@ -19,6 +21,13 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+// Creates an uploads folder if it doesn't exists
+if (!fs.existsSync(path.resolve(__dirname, process.env.UPLOADS_DIR))) {
+  fs.mkdirSync(path.resolve(__dirname, process.env.UPLOADS_DIR), {
+    recursive: true,
   });
 }
 

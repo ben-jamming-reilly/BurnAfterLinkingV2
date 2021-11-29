@@ -4,10 +4,11 @@ const express = require("express");
 const router = express.Router();
 
 const { db } = require("../utils/db");
-const { auth } = require("../middleware/auth");
+const auth = require("../middleware/auth");
+const { isValidEmail } = require("../utils/helpers");
 
 // Gets back the user data
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const id = req.user.id;
   try {
     const user = await db.user.findUnique({
@@ -36,6 +37,12 @@ router.post("/signup", async (req, res) => {
     return res
       .status(400)
       .json({ errors: [{ msg: `Incomplete body parameters` }] });
+  }
+
+  if (!isValidEmail(email)) {
+    return res
+      .status(400)
+      .json({ errors: [{ msg: `Email must be a valid address` }] });
   }
 
   try {

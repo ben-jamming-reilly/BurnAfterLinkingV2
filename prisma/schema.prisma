@@ -22,7 +22,7 @@ model Link {
   passHash   String   @id
   userId     String
   fileName   String   @default(uuid())
-  desc       String
+  desc       String?
   expireDate DateTime
   // Relation
   user       User     @relation(fields: [userId], references: [id])

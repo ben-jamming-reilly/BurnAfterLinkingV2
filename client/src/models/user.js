@@ -1,4 +1,5 @@
 import { action, thunk } from "easy-peasy";
+import axios from "axios";
 
 const user = {
   email: "",
@@ -14,11 +15,44 @@ const user = {
     state.loading = false;
   }),
   // thunks
+  login: thunk(async (actions, payload) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = {};
+
+    try {
+      const res = await axios.post("/api/user/login", body, config);
+
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }),
+  signup: thunk(async (actions, payload) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = {};
+    try {
+      const res = await axios.post("/api/user/signup", body, config);
+
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }),
   getUser: thunk(async (actions, payload) => {
     console.log(payload);
     try {
       // Network Request Simulated
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await axios.get();
 
       actions.setUser(payload);
       return true;
