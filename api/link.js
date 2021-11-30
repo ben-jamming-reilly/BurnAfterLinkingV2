@@ -42,7 +42,7 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
         passHash: passHash,
         userId: id,
         desc: desc,
-        expireDate: expireDate,
+        expireDate: new Date(expireDate),
         fileName: filename,
       },
     });
@@ -85,7 +85,7 @@ router.put("/", auth, async (req, res) => {
       },
       data: {
         desc: desc,
-        expireDate: expireDate,
+        expireDate: new Date(expireDate),
       },
     });
 
@@ -97,8 +97,8 @@ router.put("/", auth, async (req, res) => {
 });
 
 // Deletes a link
-router.delete("/", auth, async (req, res) => {
-  const { passHash } = req.body;
+router.delete("/:passHash", auth, async (req, res) => {
+  const passHash = req.params.passHash;
   const id = req.user.id;
 
   if (!passHash) {

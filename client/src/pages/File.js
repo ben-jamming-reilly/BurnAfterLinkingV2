@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useStoreState } from "easy-peasy";
+// import { useParams } from "react-router-dom";
+// import { useStoreState } from "easy-peasy";
 
 import ReCAPTCHA from "react-google-recaptcha";
 

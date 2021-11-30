@@ -17,7 +17,7 @@ const Login = () => {
   });
 
   const history = useHistory();
-  const getUser = useStoreActions((actions) => actions.user.getUser);
+  const { login } = useStoreActions((actions) => actions.user);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
     console.log(formData);
 
-    if (await getUser(formData)) {
+    if (await login(formData)) {
       history.push("/home");
     } else {
     }

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useStoreActions } from "easy-peasy";
+import { useHistory } from "react-router-dom";
 
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -10,9 +12,19 @@ import MyLinks from "../components/MyLinks";
 import CreateLink from "../components/CreateLink";
 import LinksViewed from "../components/LinksViewed";
 import LinksExpired from "../components/LinksExpired";
+import Settings from "../components/Settings";
 
 const Home = () => {
   const [menuState, setMenuState] = useState("create");
+  const history = useHistory();
+
+  const { logout } = useStoreActions((actions) => actions.user);
+
+  const out = () => {
+    logout();
+    history.push("/");
+  };
+
   return (
     <Container fluid>
       <Row className='vh-100'>
@@ -65,6 +77,15 @@ const Home = () => {
               >
                 Settings
               </ListGroup.Item>
+              <ListGroup.Item
+                action
+                variant='primary'
+                className='text-center'
+                href='#logout'
+                onClick={() => out()}
+              >
+                Logout
+              </ListGroup.Item>
             </ListGroup>
           </Stack>
         </Col>
@@ -79,7 +100,7 @@ const Home = () => {
               ) : menuState === "links-expired" ? (
                 <LinksExpired />
               ) : (
-                "settings"
+                <Settings />
               )}
             </div>
           </Stack>

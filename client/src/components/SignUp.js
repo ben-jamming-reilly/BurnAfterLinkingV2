@@ -21,7 +21,7 @@ const SignUp = () => {
 
   const history = useHistory();
 
-  const getUser = useStoreActions((actions) => actions.user.getUser);
+  const { signup } = useStoreActions((actions) => actions.user);
 
   const [captcha, setCaptcha] = useState(null);
 
@@ -32,14 +32,14 @@ const SignUp = () => {
     e.preventDefault();
 
     if (formData.password !== formData.password2) {
-      console.log("Bad");
-
+      alert("Passwords do not match");
       return;
     }
 
-    if (await getUser(formData)) {
+    if (await signup(formData)) {
       history.push("/home");
     } else {
+      alert("error");
     }
   };
 

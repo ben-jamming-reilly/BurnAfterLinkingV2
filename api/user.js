@@ -138,4 +138,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// deletes the user
+router.delete("/", auth, async (req, res) => {
+  const id = req.user.id;
+  try {
+    await db.link.deleteMany({
+      where: {
+        userId: id,
+      },
+    });
+
+    await db.user.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return res.send("Ok");
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send("Server Error :(");
+  }
+});
+
 module.exports = router;

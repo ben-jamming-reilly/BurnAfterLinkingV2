@@ -1,3 +1,4 @@
+import axios from "axios";
 import { action, thunk } from "easy-peasy";
 import { v4 as uuidv4 } from "uuid";
 import hash from "../utils/hash";
@@ -59,27 +60,41 @@ const links = {
   getLinks: thunk(async (actions, payload) => {
     try {
       // Network Request Simulated
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await axios.get("/api/link");
 
-      actions.setLinks(TestLinks);
+      actions.setLinks(res.data);
       return true;
     } catch (err) {
       return false;
     }
   }),
   saveLink: thunk(async (actions, payload) => {
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const password = uuidv4();
+    const passHash = await hash(password);
+
+    let link = {
+      passHash: passHash,
+      desc: payload.desc,
+      expireDate: payload.expireDate,
+    };
+
+    let body = new FormData();
+    body.append("file", payload.image);
+    body.append("data", JSON.stringify(link));
+
     try {
-      payload.expireDate = new Date(payload.expireDate);
-      payload.password = uuidv4();
+      await axios.post("/api/link", body, config);
 
-      payload.passHash = await hash(payload.password);
+      link.password = password;
 
-      // Network Request Simulated
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      payload.id = uuidv4();
-
-      actions.setLink(payload);
-      actions.addLink(payload);
+      actions.setLink(link);
+      actions.addLink(link);
 
       return true;
     } catch (err) {
@@ -88,12 +103,21 @@ const links = {
     }
   }),
   editLink: thunk(async (actions, payload) => {
-    try {
-      // Network Request Simulated
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-      console.log(payload);
-      actions.changeLink(payload);
+    const body = {
+      desc: payload.desc,
+      expireDate: payload.expireDate,
+      passHash: payload.passHash,
+    };
+
+    try {
+      const res = await axios.put("/api/link", body, config);
+      actions.changeLink(res.data);
       return true;
     } catch (err) {
       return false;
@@ -102,11 +126,12 @@ const links = {
   deleteLink: thunk(async (actions, payload) => {
     try {
       // Network Request Simulated
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await axios.delete(`/api/link/${payload.passHash}`);
 
       actions.removeLink(payload);
       return true;
     } catch (err) {
+      console.log(err);
       return false;
     }
   }),

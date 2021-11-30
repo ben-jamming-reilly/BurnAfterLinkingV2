@@ -1,4 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
+import setAuthToken from "./utils/setAuthToken";
 
 import Auth from "./pages/Auth";
 import File from "./pages/File";
@@ -9,6 +12,15 @@ import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
+  const { getUser } = useStoreActions((actions) => actions.user);
+  const { token, loading } = useStoreState((state) => state.user);
+
+  if (token) {
+    setAuthToken(token);
+  }
+
+  useEffect(() => getUser(), [token, getUser, loading]);
+
   return (
     <Router>
       <Switch>

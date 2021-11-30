@@ -44,9 +44,8 @@ const Link = ({ id, desc, expireDate, passHash }) => {
     e.preventDefault();
     setIsLinkUploading(true);
 
-    if (await editLink(formData)) {
-      await editLink(formData);
-    } else {
+    if (!(await editLink(formData))) {
+      console.log("Uh oh, bad");
     }
     setShowModal(false);
     setIsLinkUploading(false);
@@ -55,9 +54,8 @@ const Link = ({ id, desc, expireDate, passHash }) => {
   const onDelete = async (e) => {
     e.preventDefault();
     setIsLinkDeleting(true);
-    if (await deleteLink(formData)) {
-      await editLink(formData);
-    } else {
+    if (!(await deleteLink(formData))) {
+      console.log("Uh oh, bad");
     }
   };
 

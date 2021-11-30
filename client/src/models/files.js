@@ -1,5 +1,6 @@
+import axios from "axios";
 import { action, thunk } from "easy-peasy";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import hash from "../utils/hash";
 
 const TestFile = {};
@@ -9,15 +10,19 @@ const files = {
   key: null,
   loading: false,
   setFile: action((state, payload) => {
-    state.file = payload;
+    state.blob = payload;
+    state.loading = false;
   }),
   getFile: thunk(async (actions, payload) => {
     try {
       // Network Request Simulated
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await axios.get(`/api/file/${payload}`);
 
-      actions.setFile();
-    } catch (err) {}
+      actions.setFile(res.data);
+      console.log(res.data);
+    } catch (err) {
+      return false;
+    }
   }),
 };
 
