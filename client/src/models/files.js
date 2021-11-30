@@ -15,8 +15,11 @@ const files = {
   }),
   getFile: thunk(async (actions, payload) => {
     try {
+      const h = await hash(payload.password);
       // Network Request Simulated
-      const res = await axios.get(`/api/file/${payload}`);
+      const res = await axios.get(`/api/file/${h}`, {
+        captcha: payload.captcha,
+      });
 
       actions.setFile(res.data);
       console.log(res.data);

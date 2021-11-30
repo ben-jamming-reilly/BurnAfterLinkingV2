@@ -154,7 +154,7 @@ const MyLinks = () => {
   const getLinks = useStoreActions((actions) => actions.links.getLinks);
 
   // Gets the links data on render
-  useEffect(() => getLinks(), []);
+  useEffect(() => getLinks(), [getLinks]);
 
   return (
     <Card className='m-3' border='secondary'>

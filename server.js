@@ -18,6 +18,7 @@ app.use(express.json());
 // The API routes
 app.use("/api/link", require("./api/link"));
 app.use("/api/user", require("./api/user"));
+app.use("/api/file", require("./api/file"));
 
 if (process.env.NODE_ENV === "production") {
   //set static file

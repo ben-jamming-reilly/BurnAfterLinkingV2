@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
 // import { useStoreState } from "easy-peasy";
+import { action, useStoreActions } from "easy-peasy";
 
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -15,9 +15,18 @@ const File = () => {
   const [captcha, setCaptcha] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [showImage, setShowImage] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const { getFile } = useStoreActions((actions) => actions.files);
 
   useEffect(() => {
+    async function getImage() {
+      const password = window.location.hash.substring(1);
+      setImageUrl(await getFile(password));
+    }
+
     if (captcha !== null) {
+      getImage();
       setShowButton(true);
     }
   }, [captcha]);
