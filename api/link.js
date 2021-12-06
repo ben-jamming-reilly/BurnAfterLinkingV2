@@ -24,11 +24,12 @@ router.get("/", auth, async (req, res) => {
 });
 
 // Creates a new link
-router.post("/", [auth, upload.single("file")], async (req, res) => {
-  const { passHash, desc, expireDate } = JSON.parse(req.body.data);
+router.post("/", auth, async (req, res) => {
+  const { passHash, desc, expireDate, data } = req.body.data;
   const id = req.user.id;
-  // const filename = `${req.file.filename}.${req.file.mimetype.split("/")[1]}`;
-  const filename = req.file.filename;
+  const filename = req.file;
+
+  console.log(req.body);
 
   if (!passHash || !expireDate) {
     return res

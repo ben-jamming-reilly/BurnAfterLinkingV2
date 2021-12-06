@@ -3,10 +3,10 @@ const path = require("path");
 const router = express.Router();
 
 const auth = require("../middleware/auth");
-const captcha = require("../middleware/captcha");
+// const captcha = require("../middleware/captcha");
 const { db } = require("../utils/db");
 
-router.get("/:passHash", captcha, async (req, res) => {
+router.get("/:passHash", async (req, res) => {
   const passHash = req.params.passHash;
   try {
     const link = await db.link.findUnique({
