@@ -6,7 +6,7 @@ const user = {
   token: "",
   email: "",
   isAuthenticated: false,
-  loading: false,
+  loading: true,
   setToken: action((state, payload) => {
     state.token = payload.token;
 
@@ -18,7 +18,6 @@ const user = {
   }),
   setUser: action((state, payload) => {
     state.email = payload.email;
-    state.isAuthenticated = payload.isAuthenticated;
     state.loading = false;
   }),
   logout: action((state, payload) => {

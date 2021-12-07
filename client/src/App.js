@@ -19,7 +19,7 @@ function App() {
     setAuthToken(token);
   }
 
-  useEffect(() => getUser(), [token, getUser, loading]);
+  useEffect(() => getUser(), [token, getUser]);
 
   return (
     <Router>
