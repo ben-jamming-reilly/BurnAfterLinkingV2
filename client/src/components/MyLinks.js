@@ -125,7 +125,7 @@ const Link = ({ id, desc, expireDate, passHash }) => {
         </Modal.Body>
       </Modal>
       <Card
-        style={{ minWidth: "18rem", maxWidth: "20rem" }}
+        style={{ minWidth: "19rem", maxWidth: "20rem" }}
         className='m-2'
         border='secondary'
       >
@@ -149,15 +149,17 @@ const Link = ({ id, desc, expireDate, passHash }) => {
           </Stack>
         </Card.Header>
         <Card.Body>
-          <Card.Title>{prettyDate(expireDate)}</Card.Title>
           <Card.Subtitle className='text-muted mb-2 px-1'>
-            {prettyTime(expireDate)}
+            Expires
           </Card.Subtitle>
+          <Card.Title>{prettyDate(expireDate)}</Card.Title>
           <Card.Text>
             <b>Description:</b> {desc}
           </Card.Text>
         </Card.Body>
-        <Card.Footer className='text-muted p-0'>{passHash}</Card.Footer>
+        <Card.Footer className='text-muted p-0 text-center'>
+          {passHash}
+        </Card.Footer>
       </Card>
     </Fragment>
   );

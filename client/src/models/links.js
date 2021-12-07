@@ -74,6 +74,7 @@ const links = {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err.response.data.errors[0].msg);
       return false;
     }
   }),
@@ -95,6 +96,7 @@ const links = {
       actions.changeLink(res.data);
       return true;
     } catch (err) {
+      alert(err.response.data.errors[0].msg);
       return false;
     }
   }),
@@ -106,6 +108,7 @@ const links = {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err.response.data.errors[0].msg);
       return false;
     }
   }),

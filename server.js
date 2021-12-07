@@ -36,11 +36,11 @@ cron.schedule("* * * * *", async () => {
     const links = await db.link.deleteMany({
       where: {
         expireDate: {
-          gte: new Date(),
+          lte: new Date(),
         },
       },
     });
-    console.log(`${links.length ? links.length : "0"} records removed from DB`);
+    console.log(`${links.count} records removed from DB`);
   } catch (err) {
     console.log(err);
   }

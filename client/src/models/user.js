@@ -46,6 +46,7 @@ const user = {
 
       return true;
     } catch (err) {
+      alert(err.response.data.errors[0].msg);
       return false;
     }
   }),
@@ -67,6 +68,7 @@ const user = {
 
       return true;
     } catch (err) {
+      alert(err.response.data.errors[0].msg);
       return false;
     }
   }),

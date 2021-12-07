@@ -16,7 +16,7 @@ import ImageIcon from "../icons/ImageIcon";
 const CreateLink = () => {
   const [previewFile, setPreviewFile] = useState(null);
   const [formData, setFormData] = useState({
-    expireDate: null,
+    expireDate: new Date(),
     desc: "",
     image: null,
   });
