@@ -57,8 +57,6 @@ const links = {
       const passHash = await hash(password);
       const encryptedFile = await encryptFile(payload.image, password);
 
-      console.log(password);
-
       const body = {
         passHash: passHash,
         desc: payload.desc,

@@ -13,7 +13,7 @@ const File = () => {
   const [captcha, setCaptcha] = useState(null);
 
   const { getFile } = useStoreActions((actions) => actions.file);
-  const { url, file, loading } = useStoreState((state) => state.file);
+  const { url, loading } = useStoreState((state) => state.file);
 
   useEffect(() => {
     if (captcha !== null) {
@@ -21,7 +21,7 @@ const File = () => {
       console.log(password);
       getFile(password);
     }
-  }, [captcha]);
+  }, [captcha, getFile]);
 
   return (
     <Fragment>

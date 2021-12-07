@@ -9,9 +9,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
-// Captcha
-import ReCAPTCHA from "react-google-recaptcha";
-
 const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -22,8 +19,6 @@ const SignUp = () => {
   const history = useHistory();
 
   const { signup } = useStoreActions((actions) => actions.user);
-
-  const [captcha, setCaptcha] = useState(null);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

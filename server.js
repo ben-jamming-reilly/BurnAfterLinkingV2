@@ -30,8 +30,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // This will check for any links that need to be deleted
-cron.schedule("* 12 * * *", async () => {
-  // every 12 hours
+cron.schedule("* * * * *", async () => {
+  // every minute
   try {
     const links = await db.link.deleteMany({
       where: {
@@ -40,6 +40,7 @@ cron.schedule("* 12 * * *", async () => {
         },
       },
     });
+    console.log(`${links.length ? links.length : "0"} records removed from DB`);
   } catch (err) {
     console.log(err);
   }
