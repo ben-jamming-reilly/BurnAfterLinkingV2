@@ -16,12 +16,16 @@ router.get("/:passHash", async (req, res) => {
     });
 
     if (!link) {
-      return res.status(400).json({ errors: [{ msg: `No Link ya dink` }] });
+      return res.status(400).json({ errors: [{ msg: `Link not found` }] });
     }
 
-    return res.sendFile(
-      path.resolve(__dirname, "..", process.env.UPLOADS_DIR, link.fileName)
-    );
+    await db.link.delete({
+      where: {
+        passHash: passHash,
+      },
+    });
+
+    return res.json(link);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server Error");

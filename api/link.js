@@ -14,6 +14,12 @@ router.get("/", auth, async (req, res) => {
       where: {
         userId: id,
       },
+      select: {
+        passHash: true,
+        userId: true,
+        desc: true,
+        expireDate: true,
+      },
     });
 
     return res.json(links);
@@ -25,11 +31,8 @@ router.get("/", auth, async (req, res) => {
 
 // Creates a new link
 router.post("/", auth, async (req, res) => {
-  const { passHash, desc, expireDate, data } = req.body.data;
+  const { passHash, desc, expireDate, data } = req.body;
   const id = req.user.id;
-  const filename = req.file;
-
-  console.log(req.body);
 
   if (!passHash || !expireDate) {
     return res
@@ -38,17 +41,17 @@ router.post("/", auth, async (req, res) => {
   }
 
   try {
-    const link = await db.link.create({
+    let link = await db.link.create({
       data: {
         passHash: passHash,
         userId: id,
         desc: desc,
         expireDate: new Date(expireDate),
-        fileName: filename,
+        data: data,
       },
     });
 
-    // need more logic here
+    link.data = undefined;
 
     return res.json(link);
   } catch (err) {

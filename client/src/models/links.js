@@ -2,32 +2,7 @@ import axios from "axios";
 import { action, thunk } from "easy-peasy";
 import { v4 as uuidv4 } from "uuid";
 import hash from "../utils/hash";
-
-const d = new Date();
-
-const TestLinks = [
-  {
-    id: uuidv4(),
-    desc: "This is a picture of a super funny dog",
-    expireDate: d.toUTCString(),
-    passHash:
-      "0ee5227097c81013a7e04ca6366f2b6c5b6b27dbb09045c5d49f91d985ddd1f9",
-  },
-  {
-    id: uuidv4(),
-    desc: "A picture of my social security card",
-    expireDate: d.toUTCString(),
-    passHash:
-      "0ecce3ad876a553d6eda6fa8839451eaa4ebcd3fe9f52f512e842d6b5146d048",
-  },
-  {
-    id: uuidv4(),
-    desc: "A picutre of a bank statement",
-    expireDate: d.toUTCString(),
-    passHash:
-      "c5ef584306b1220dc560b273c436e57a6c67226c0f739bdcfcfbefe25ba1a4ff",
-  },
-];
+import { encryptFile } from "../utils/crypto";
 
 const links = {
   link: {},
@@ -54,7 +29,9 @@ const links = {
     });
   }),
   removeLink: action((state, payload) => {
-    state.links = state.links.filter((link) => link.id !== payload.id);
+    state.links = state.links.filter(
+      (link) => link.passHash !== payload.passHash
+    );
   }),
   // Thunks
   getLinks: thunk(async (actions, payload) => {
@@ -71,28 +48,28 @@ const links = {
   saveLink: thunk(async (actions, payload) => {
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
     };
 
-    const password = uuidv4();
-    const passHash = await hash(password);
-
-    let link = {
-      passHash: passHash,
-      desc: payload.desc,
-      expireDate: payload.expireDate,
-    };
-
-    let body = new FormData();
-    body.append("file", payload.image);
-    body.append("data", JSON.stringify(link));
-
     try {
-      await axios.post("/api/link", body, config);
+      const password = uuidv4();
+      const passHash = await hash(password);
+      const encryptedFile = await encryptFile(payload.image, password);
+
+      console.log(password);
+
+      const body = {
+        passHash: passHash,
+        desc: payload.desc,
+        expireDate: payload.expireDate,
+        data: encryptedFile,
+      };
+
+      const res = await axios.post("/api/link", body, config);
+      let link = res.data;
 
       link.password = password;
-
       actions.setLink(link);
       actions.addLink(link);
 
@@ -125,7 +102,6 @@ const links = {
   }),
   deleteLink: thunk(async (actions, payload) => {
     try {
-      // Network Request Simulated
       await axios.delete(`/api/link/${payload.passHash}`);
 
       actions.removeLink(payload);

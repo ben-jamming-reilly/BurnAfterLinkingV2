@@ -2,12 +2,12 @@ import { createStore, persist } from "easy-peasy";
 
 import links from "./links";
 import user from "./user";
-import files from "./files";
+import file from "./file";
 
 const store = createStore({
   links: links,
   user: persist(user),
-  files: files,
+  file: file,
 });
 
 export default store;

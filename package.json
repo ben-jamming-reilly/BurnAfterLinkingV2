@@ -9,7 +9,9 @@
   "scripts": {
     "server": "nodemon server.js",
     "client": "yarn --cwd client start",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "client-secure": "yarn --cwd client start-secure",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "dev-secure": "concurrently \"yarn server\" \"yarn client-secure\""
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
