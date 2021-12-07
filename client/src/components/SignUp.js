@@ -84,18 +84,10 @@ const SignUp = () => {
           />
         </Form.Group>
       </Row>
-      {/* <Row className='mb-2'>
-        <Form.Group as={Col}>
-          <ReCAPTCHA
-            sitekey='6LfkPCEaAAAAAErMd08ve2nZ48ZSqhMMuJurQxH3'
-            onChange={(value) => setCaptcha(value)}
-          />
-        </Form.Group>
-      </Row> */}
       <Row className='mb-2'>
         <Form.Group as={Col} className='text-center'>
           <Button block type='submit' className='w-100'>
-            Sign Up
+            Signup
           </Button>
         </Form.Group>
       </Row>

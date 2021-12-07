@@ -59,6 +59,19 @@ const Link = ({ id, desc, expireDate, passHash }) => {
     }
   };
 
+  function minDate() {
+    let date = new Date();
+    date.setDate(date.getDate() + 1);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    if (day < 10) day = "0" + day;
+    if (month < 10) month = "0" + month;
+
+    return `${year}-${month}-${day}`;
+  }
+
   const handleClose = () => setShowModal(false);
 
   return (
@@ -79,6 +92,7 @@ const Link = ({ id, desc, expireDate, passHash }) => {
                     size='sm'
                     name='expireDate'
                     value={formData.expireDate}
+                    min={minDate()}
                     required
                   />
                 </FloatingLabel>

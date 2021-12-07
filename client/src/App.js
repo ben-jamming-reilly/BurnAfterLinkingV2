@@ -13,7 +13,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const { getUser } = useStoreActions((actions) => actions.user);
-  const { token, loading } = useStoreState((state) => state.user);
+  const { token } = useStoreState((state) => state.user);
 
   if (token) {
     setAuthToken(token);

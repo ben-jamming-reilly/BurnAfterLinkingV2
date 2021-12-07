@@ -54,24 +54,6 @@ const Home = () => {
                 action
                 variant='primary'
                 className='text-center'
-                href='#links-views'
-                onClick={() => setMenuState("links-views")}
-              >
-                Links Viewed
-              </ListGroup.Item>
-              <ListGroup.Item
-                action
-                variant='primary'
-                className='text-center'
-                href='#links-expired'
-                onClick={() => setMenuState("links-expired")}
-              >
-                Links Expired
-              </ListGroup.Item>
-              <ListGroup.Item
-                action
-                variant='primary'
-                className='text-center'
                 href='#settings'
                 onClick={() => setMenuState("settings")}
               >

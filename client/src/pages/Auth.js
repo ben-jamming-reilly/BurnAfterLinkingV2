@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import { useStoreState } from "easy-peasy";
 
 import Login from "../components/Login";
@@ -24,8 +25,10 @@ const Auth = () => {
     <Fragment>
       <Navbar bg='primary' variant='dark'>
         <Container>
-          <Navbar.Brand>
-            <h2>BurnAfterLinking</h2>
+          <Navbar.Brand className='bg-light rounded py-1 px-3'>
+            <Link to='/'>
+              <h2>BurnAfterLinking</h2>
+            </Link>
           </Navbar.Brand>
         </Container>
       </Navbar>

@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-// import { useStoreState } from "easy-peasy";
+import { Link } from "react-router-dom";
 import { useStoreActions, useStoreState } from "easy-peasy";
 
 import ReCAPTCHA from "react-google-recaptcha";
@@ -27,8 +27,10 @@ const File = () => {
     <Fragment>
       <Navbar bg='primary' variant='dark'>
         <Container>
-          <Navbar.Brand>
-            <h2>Burn After Linking</h2>
+          <Navbar.Brand className='bg-light rounded py-1 px-3'>
+            <Link to='/'>
+              <h2>BurnAfterLinking</h2>
+            </Link>
           </Navbar.Brand>
         </Container>
       </Navbar>
