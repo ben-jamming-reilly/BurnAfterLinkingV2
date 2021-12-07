@@ -16,7 +16,7 @@ Grab the docker image for postgres
 docker pull postgres
 ```
 
-Run the docker container (leave this running)
+Run the docker container (leave this running in a seperate terminal)
 
 ```s
 docker run --name pg -e POSTGRES_PASSWORD=SpikeTheBulldog -e POSTGRES_DB=app -p 5432:5432 postgres
@@ -46,16 +46,8 @@ Install all dependencies
 npm run setup
 ```
 
-## Map your database
-
-To remap prisma schema to postgres schema (only for development) run...
-
-```s
-yarn prisma migrate dev
-```
-
 ## Run the sucker
 
 ```s
-yarn dev
+npm run dev
 ```
