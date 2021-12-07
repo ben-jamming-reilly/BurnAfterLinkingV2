@@ -11,7 +11,8 @@
     "client": "yarn --cwd client start",
     "client-secure": "yarn --cwd client start-secure",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "dev-secure": "concurrently \"yarn server\" \"yarn client-secure\""
+    "dev-secure": "concurrently \"yarn server\" \"yarn client-secure\"",
+    "setup": "npm install && npm install --prefix client && npx prisma migrate dev"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",

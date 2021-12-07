@@ -22,7 +22,7 @@ Run the docker container (leave this running)
 docker run --name pg -e POSTGRES_PASSWORD=SpikeTheBulldog -e POSTGRES_DB=app -p 5432:5432 postgres
 ```
 
-## Setup your express environment
+## Setup your dependencies
 
 Of course, clone the repo
 
@@ -30,21 +30,20 @@ Of course, clone the repo
 git clone git@github.com:Gonzaga-CPSC-Fall-2021-Olivares/cpsc-314-web-development-final-project-ben-jamming-reilly.git
 ```
 
-Install all dependencies (run in root dir of project)
-
-```s
-yarn add
-```
-
 Create a .env file in root
 
 ```s
 DATABASE_URL="postgresql://postgres:SpikeTheBulldog@localhost:5432/app?schema=public"
 JWT_SECRET="rE9xzbotqJHrU8vYfQUSsW5feH1qgJgF"
-JWT_TTL="7200"
-UPLOADS_DIR="./uploads"
+JWT_TTL="72000"
 CAPTCHA_SITE_KEY="6LfkPCEaAAAAAErMd08ve2nZ48ZSqhMMuJurQxH3"
-CAPTCHA_SECRET_KEY="<REDACTED>"
+CAPTCHA_SECRET_KEY="6LfkPCEaAAAAAI2sFFQYZTtyG5ot1GjWIxzcau0_"
+```
+
+Install all dependencies
+
+```s
+npm run setup
 ```
 
 ## Map your database
